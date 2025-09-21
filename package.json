@@ -1,7 +1,13 @@
 {
   "name": "mfe-module-1",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Module 1 for Microfrontend Architecture",
+  "main": "dist/bundles/main.js",
+  "types": "src/export.tsx",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "dev": "modern dev",
     "build": "modern build",
