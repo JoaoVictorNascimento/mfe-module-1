@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLoader } from '@modern-js/runtime';
 import { loader } from './Page2.data';
+import '../styles.css';
 
 interface LoaderData {
   categories: string[];
@@ -76,9 +77,6 @@ const Page2: React.FC = () => {
               <h3 className="text-xl font-bold capitalize mb-2">
                 {category}
               </h3>
-              <p className="text-sm opacity-90">
-                Clique para ver produtos desta categoria
-              </p>
             </div>
           </div>
         ))}
