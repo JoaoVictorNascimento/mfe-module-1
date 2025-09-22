@@ -1,9 +1,11 @@
 import React from 'react';
-import { Routes, Route, Link, useLocation, useNavigate } from '@modern-js/runtime/router';
+import { createBrowserRouter, RouterProvider, Link, useLocation, useNavigate, Outlet } from '@modern-js/runtime/router';
 import Page1 from '../routes/page1';
 import Page2 from '../routes/page2';
+import { loader as page1Loader } from '../routes/page1.data';
+import { loader as page2Loader } from '../routes/page2.data';
 
-const Module1Router: React.FC = () => {
+function Module1Layout() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -20,6 +22,16 @@ const Module1Router: React.FC = () => {
         >
           ← Voltar
         </button>
+        <Link 
+          to="/module1/" 
+          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+            location.pathname === '/module1/' 
+              ? 'bg-blue-600 text-white' 
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+        >
+          Home
+        </Link>
         <Link 
           to="/module1/page1" 
           className={`px-4 py-2 rounded-lg font-medium transition-colors ${
@@ -42,18 +54,45 @@ const Module1Router: React.FC = () => {
         </Link>
       </div>
 
-      <Routes>
-        <Route path="/page1" element={<Page1 />} />
-        <Route path="/page2" element={<Page2 />} />
-        <Route path="/" element={
-          <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8 rounded-lg shadow-lg text-center w-full">
-            <h1 className="text-2xl font-bold">Módulo 1 - Home</h1>
-            <p className="mt-2">Selecione uma página acima para navegar</p>
-          </div>
-        } />
-      </Routes>
+      <Outlet />
     </div>
   );
+}
+
+function Module1Home() {
+  return (
+    <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8 rounded-lg shadow-lg text-center w-full">
+      <h1 className="text-2xl font-bold">Módulo 1 - Home</h1>
+      <p className="mt-2">Selecione uma página acima para navegar</p>
+    </div>
+  );
+}
+
+const module1Router = createBrowserRouter([
+  {
+    path: "/module1",
+    element: <Module1Layout />,
+    children: [
+      {
+        index: true,
+        element: <Module1Home />
+      },
+      {
+        path: "page1",
+        element: <Page1 />,
+        loader: page1Loader
+      },
+      {
+        path: "page2", 
+        element: <Page2 />,
+        loader: page2Loader
+      }
+    ]
+  }
+]);
+
+const Module1Router: React.FC = () => {
+  return <RouterProvider router={module1Router} />;
 };
 
 export default Module1Router;
