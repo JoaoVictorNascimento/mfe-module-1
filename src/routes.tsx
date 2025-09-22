@@ -73,7 +73,6 @@ function Module1Home() {
   );
 }
 
-// Definição das rotas do Módulo 1
 export const module1Routes = {
   path: "module1",
   element: <Module1Layout />,

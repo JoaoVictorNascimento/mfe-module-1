@@ -1,6 +1,5 @@
 import React from 'react';
-import { useLoader } from '@modern-js/runtime';
-import { loader } from './page1.data';
+import { useLoaderData, useRouteError } from '@modern-js/runtime/router';
 import '../styles.css';
 
 interface Product {
@@ -22,7 +21,8 @@ interface LoaderData {
 }
 
 const Page1: React.FC = () => {
-  const { data, error } = useLoader<LoaderData>(loader);
+  const data = useLoaderData() as LoaderData;
+  const error = useRouteError() as Response;
   const products = data?.products || [];
   const loading = !products.length && !error;
 
@@ -40,7 +40,7 @@ const Page1: React.FC = () => {
     return (
       <div className="bg-gradient-to-r from-red-500 to-red-600 text-white p-8 rounded-lg shadow-lg text-center w-full">
         <h1 className="text-2xl font-bold">Erro</h1>
-        <p className="mt-2">{error}</p>
+        <p className="mt-2">{error.statusText}</p>
       </div>
     );
   }
