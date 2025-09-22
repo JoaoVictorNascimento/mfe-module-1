@@ -7,7 +7,7 @@ export default defineConfig({
     }),
   ],
   runtime: {
-    router: false,
+    router: true,
   },
   source: {
     entries: {
