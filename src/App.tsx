@@ -1,9 +1,9 @@
-import Page1 from './pages/Page1';
+import Module1Router from './components/Module1Router';
 
 const App = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <Page1 />
+      <Module1Router />
     </div>
   );
 };
