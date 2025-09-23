@@ -1,6 +1,6 @@
 {
   "name": "mfe-module-1",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
