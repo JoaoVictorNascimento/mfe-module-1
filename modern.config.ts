@@ -18,14 +18,23 @@ export default defineConfig({
     ssr: true,
     port: 3001,
   },
-  deploy: {
-    microFrontend: {
-      enableHtmlEntry: true,
-      externalBasicLibrary: true,
-      moduleApp: 'mfe-module-1',
-    },
-  },
   tools: {
+    rspack: {
+      plugins: [
+        new (require('@rspack/core').ModuleFederationPlugin)({
+          name: 'mfe_module_1',
+          filename: 'remoteEntry.js',
+          exposes: {
+            './routes': './src/routes.tsx',
+            './App': './src/App.tsx'
+          },
+          shared: {
+            react: { singleton: true },
+            'react-dom': { singleton: true }
+          }
+        })
+      ]
+    },
     tailwindcss: {},
   },
 });
